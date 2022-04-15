@@ -1,2 +1,4 @@
 mongoengine
 flask
+faker
+pytest

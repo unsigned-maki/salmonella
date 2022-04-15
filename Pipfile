@@ -7,6 +7,7 @@ name = "pypi"
 mongoengine = "*"
 Flask = "*"
 Faker = "*"
+pytest = "*"
 
 [dev-packages]
 
@@ -14,4 +15,4 @@ Faker = "*"
 python_version = "3.9"
 
 [scripts]
-run = "py test.py"
+test = "pytest"
