@@ -13,6 +13,7 @@
     <!-- Favicon and title -->
     <title>Salmonella</title>
 
+    <!-- Fontawsome-->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -27,6 +28,14 @@
       referrerpolicy="no-referrer"
     ></script>
 
+    <!-- Chart.js-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+      integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="chart.js"></script>
     <!-- Halfmoon CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css"
@@ -89,7 +98,7 @@
         <div class="sidebar-menu">
           <h5 class="sidebar-title">Polls</h5>
           <div class="sidebar-divider"></div>
-          <a href="create.html" class="sidebar-link sidebar-link-with-icon">
+          <a href="#" class="sidebar-link sidebar-link-with-icon">
             <span
               class="sidebar-icon bg-transparent justify-content-start mr-0"
             >
@@ -98,7 +107,7 @@
             </span>
             Create Poll
           </a>
-          <a href="create.html" class="sidebar-link sidebar-link-with-icon">
+          <a href="#" class="sidebar-link sidebar-link-with-icon">
             <span
               class="sidebar-icon bg-transparent justify-content-start mr-0"
             >
@@ -143,44 +152,92 @@
       <!-- Sidebar end -->
 
       <!-- Content wrapper start -->
-      <div
-        margin="10"
-        class="content-wrapper d-flex justify-content-center allign-items-center"
-      >
-        <div class="w-800 mw-full">
-          <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
-          <div class="card">
-            <h2 class="card-title">Login</h2>
-            <form action="..." method="..." class="w-500 mw-full">
-              <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
-              <div class="form-group">
-                <label for="username" class="required">Username</label>
+      <div class="content-wrapper">
+        <h2>Create Poll</h2>
+        <input
+          type="text"
+          class="form-control form-control-lg w-600"
+          placeholder="Input Title"
+        />
+        <br />
+        <h4>Options</h4>
+        <div class="input-group w-400 mb-20">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <!-- Checkbox with empty label -->
+              <div class="custom-checkbox">
                 <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  placeholder="Username"
-                  required="required"
+                  type="checkbox"
+                  id="checkbox1"
+                  value=""
+                  disabled="disabled"
+                  checked="checked"
                 />
+                <label for="checkbox1" class="blank"></label>
               </div>
-              <div class="form-group">
-                <label for="password" class="required">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  placeholder="Password"
-                  required="required"
-                />
-              </div>
-              <input
-                class="btn btn-primary btn-block"
-                type="submit"
-                value="Login"
-              />
-            </form>
+            </div>
           </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Write your questions here"
+          />
         </div>
+        <div class="input-group w-400 mb-20">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <!-- Checkbox with empty label -->
+              <div class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  id="checkbox2"
+                  value=""
+                  disabled="disabled"
+                  checked="checked"
+                />
+                <label for="checkbox2" class="blank"></label>
+              </div>
+            </div>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Write your questions here"
+          />
+        </div>
+        <div class="input-group w-400 mb-20">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <!-- Checkbox with empty label -->
+              <div class="custom-checkbox">
+                <input type="checkbox" id="checkbox3" value="" />
+                <label for="checkbox3" class="blank"></label>
+              </div>
+            </div>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Write your questions here"
+          />
+        </div>
+        <div class="input-group w-400 mb-20">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <!-- Checkbox with empty label -->
+              <div class="custom-checkbox">
+                <input type="checkbox" id="checkbox4" value="" />
+                <label for="checkbox4" class="blank"></label>
+              </div>
+            </div>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Write your questions here"
+          />
+        </div>
+        <input href="index.html" class="btn btn-link" type="submit" value="Submit"/>
       </div>
       <!-- Content wrapper end -->
 
