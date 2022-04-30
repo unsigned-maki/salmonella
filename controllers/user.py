@@ -29,3 +29,12 @@ def delete_user(id):
 
     users[0].delete()
     return True
+
+def update_user_password(id, new_password):
+    users = db.models.User.objects(id=id)
+    
+    if not users.count():
+        return False
+
+    users[0].update(password=hashlib.sha256(new_password.encode()).digest())
+    return True
