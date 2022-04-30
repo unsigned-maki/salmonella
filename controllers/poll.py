@@ -4,7 +4,7 @@ def create_poll(author, options, title, description):
     if get_poll(author=author):
         return False
 
-    insert_options=[]
+    insert_options = []
 
     for option in options:
         insert_options.append(db.models.Option(text=option)) 
@@ -26,7 +26,7 @@ def get_poll(**kwargs):
     return polls[0]
 
 def delete_poll(id):
-    polls=polls.models.Poll.objects(id=id)
+    polls = polls.models.Poll.objects(id=id)
 
     if not polls.count():
         return False
