@@ -37,5 +37,5 @@ def test_delete_user_b():
 def test_update_user_password_a():
     new_user = user.create_user(fake.name(), fake.password())
     password = user.get_user(id=new_user).password
-    user.edit_user_password(new_user, fake.password())
+    user.update_user_password(new_user, fake.password())
     assert user.get_user(id=new_user).password != password
