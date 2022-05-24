@@ -1,4 +1,5 @@
-import database as db 
+import database as db
+
 
 def create_poll(author, options, title, description):
     if get_poll(author=author):
@@ -11,11 +12,12 @@ def create_poll(author, options, title, description):
 
     try:
         new_poll = db.models.Poll(author=author, options=insert_options, title=title, description=description)
-        new_poll.save() 
+        new_poll.save()
     except ValidationError:
         return False
 
     return new_poll.id
+
 
 def get_poll(**kwargs):
     polls = db.models.Poll.objects(**kwargs)
@@ -25,8 +27,9 @@ def get_poll(**kwargs):
 
     return polls[0]
 
+
 def delete_poll(id):
-    polls = polls.models.Poll.objects(id=id)
+    polls = db.models.Poll.objects(id=id)
 
     if not polls.count():
         return False

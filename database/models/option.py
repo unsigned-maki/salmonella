@@ -1,9 +1,11 @@
 import uuid
 from mongoengine import *
 
+
 def valid_votes(votes):
     if votes < 0:
         raise ValidationError("Votes cannot be less than 0")
+
 
 class Option(EmbeddedDocument):
     id = UUIDField(default=uuid.uuid4(), primary_key=True)
