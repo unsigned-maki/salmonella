@@ -1,3 +1,4 @@
+import uuid
 import hashlib
 import database as db
 
@@ -16,6 +17,10 @@ def create_user(name, password):
 
 
 def get_user(**kwargs):
+    if kwargs.get("id"):
+        if not isinstance(kwargs["id"], uuid.UUID) and isinstance(kwargs["id"], str):
+            kwargs["id"] = uuid.UUID(f"{kwargs['id']}")
+
     users = db.models.User.objects(**kwargs)
 
     if not users.count():
