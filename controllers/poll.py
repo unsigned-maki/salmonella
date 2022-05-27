@@ -6,10 +6,14 @@ def create_poll(author, options, title, description):
     insert_options = []
 
     for option in options:
-        insert_options.append(db.models.Option(text=option)) 
+        insert_options.append(db.models.Option(text=option))
 
     try:
-        new_poll = db.models.Poll(author=author, options=insert_options, title=title, description=description)
+        new_poll = db.models.Poll(
+            author=author,
+            options=insert_options,
+            title=title,
+            description=description)
         new_poll.save()
     except ValidationError as e:
         raise e
