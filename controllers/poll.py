@@ -11,7 +11,10 @@ def create_poll(author, options, title, description):
     try:
         new_poll = db.models.Poll(author=author, options=insert_options, title=title, description=description)
         new_poll.save()
-    except ValidationError:
+    except ValidationError as e:
+        raise e
+
+    if not new_poll:
         return False
 
     return new_poll.id
