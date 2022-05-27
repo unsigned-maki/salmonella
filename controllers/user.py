@@ -52,11 +52,20 @@ def delete_user(id):
     return True
 
 
-def update_user_password(id, new_password):
+def update_user_password(id, new, confirm):
+    if len(new) < 8:
+        raise ValidationError("Password must be at least 8 characters long.")
+
+    if " " in new:
+        raise ValidationError("Invalid username or password.")
+
+    if new != confirm:
+        raise ValidationError("Passwords do not match.")
+
     users = db.models.User.objects(id=id)
 
     if not users.count():
         return False
 
-    users[0].update(password=hashlib.sha256(new_password.encode()).digest())
+    users[0].update(password=hashlib.sha256(new.encode()).digest())
     return True
