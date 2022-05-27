@@ -15,7 +15,7 @@ def create():
             new_user = controller.create_user(
                 name := request.form.get("name", ""),
                 password := request.form.get("password", ""),
-                request.form.get("confirm", ""))
+                not request.form.get("confirm", ""))
 
             if not new_user:
                 return render_template(
