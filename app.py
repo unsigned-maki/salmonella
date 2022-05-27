@@ -3,7 +3,7 @@ import config
 from views.poll import poll
 from views.user import user
 from secure.auth import auth
-from flask import Flask, request, session, render_template
+from flask import Flask, request, session, render_template, redirect, url_for
 
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ app.register_blueprint(user, url_prefix="/user")
 def require_auth():
     if request.endpoint in config.REQUIRE_AUTHENTICATION:
         if not auth.is_authenticated(session.get("token", "")):
-            return "no"
+            return redirect(url_for("user.login"))
 
 
 @app.before_request
