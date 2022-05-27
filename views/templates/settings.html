@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<!-- Content wrapper start -->
+<div margin="10" class="content-wrapper d-flex justify-content-center allign-items-center">
+  <div class="w-800 mw-full">
+    <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+    <div class="card">
+      <h2 class="card-title">Change Password</h2>
+      <form action="/user/settings" method="post" class="w-500 mw-full">
+        <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+        <div class="form-group">
+          <label for="password" class="required">New password</label>
+          <input name="new" type="password" class="form-control" id="password" placeholder="New Password"
+            required="required" />
+        </div>
+        <div class="form-group">
+          <label for="password" class="required">Confirm new password</label>
+          <input name="confirm" type="password" class="form-control" id="password" placeholder="New Password"
+            required="required" />
+        </div>
+        <div class="form-group">
+          <label for="password" class="required">Current password</label>
+          <input name="current" type="password" class="form-control" id="password" placeholder="Current Password"
+            required="required" />
+        </div>
+        <input class="btn btn-primary btn-block" type="submit" value="Change Password" />
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Content wrapper end -->
+{% endblock %}

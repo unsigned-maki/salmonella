@@ -5,6 +5,7 @@ CACHE_CONFIG = {
 }
 
 REQUIRE_AUTHENTICATION = [
+    "user.change_password"
 ]
 
 NO_AUTHENTICATION = [
