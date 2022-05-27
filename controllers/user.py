@@ -4,12 +4,15 @@ import database as db
 from mongoengine import ValidationError
 
 
-def create_user(name, password):
+def create_user(name, password, confirm):
     if get_user(name=name):
         raise ValidationError(f"User {name} already exists.")
 
     if len(password) < 8:
         raise ValidationError("Password must be at least 8 characters long.")
+
+    if password != confirm:
+        raise ValidationError("Passwords do not match.")
 
     try:
         new_user = db.models.User(name=name, password=hashlib.sha256(password.encode()).digest())
