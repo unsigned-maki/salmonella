@@ -3,9 +3,6 @@ from mongoengine import ValidationError
 
 
 def create_poll(author, options, title, description):
-    if get_poll(author=author):
-        return False
-
     insert_options = []
 
     for option in options:
