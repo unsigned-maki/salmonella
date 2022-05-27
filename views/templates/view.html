@@ -13,6 +13,7 @@
     <!-- Favicon and title -->
     <title>Salmonella</title>
 
+    <!-- Fontawsome-->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -27,6 +28,13 @@
       referrerpolicy="no-referrer"
     ></script>
 
+    <!-- Chart.js-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+      integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <!-- Halfmoon CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css"
@@ -98,7 +106,7 @@
             </span>
             Create Poll
           </a>
-          <a href="create.html" class="sidebar-link sidebar-link-with-icon">
+          <a href="#" class="sidebar-link sidebar-link-with-icon">
             <span
               class="sidebar-icon bg-transparent justify-content-start mr-0"
             >
@@ -142,51 +150,37 @@
       </div>
       <!-- Sidebar end -->
 
-            <!-- Content wrapper start -->
-            <div
-            margin="10"
-            class="content-wrapper d-flex justify-content-center allign-items-center"
-          >
-            <div class="w-800 mw-full">
-              <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
-              <div class="card">
-                <h2 class="card-title">Login</h2>
-                <form action="..." method="..." class="w-500 mw-full">
-                  <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
-                  <div class="form-group">
-                    <label for="username" class="required">Username</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="username"
-                      placeholder="Username"
-                      required="required"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="password" class="required">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="password"
-                      placeholder="Password"
-                      required="required"
-                    />
-                    <div class="custom-checkbox w-200 h-20 mw-full mt-10"  >
-                      <input type="checkbox" id="checkbox-1" value="">
-                      <label for="checkbox-1">Stay logged in</label>
-                    </div>  
-                  </div>
-                  <input
-                    class="btn btn-primary btn-block"
-                    type="submit"
-                    value="Login"
-                  />
-                </form>
+      <!-- Content wrapper start -->
+      <div class="content-wrapper">
+        <br>
+          <h2 style="text-align: center;">Welcome To Salmonella!</h2>
+          <div class="card w-300 h-250">
+            <h2 class="card-title mb-0 font-size-22" style="text-align: center;">
+              Most Beatiful City
+          </h2>           
+            <canvas id="myChart"></canvas>
+            <div class="text-right"> <!-- text-right = text-align: right -->
+                <a href="#" class="btn">Vote</a>
               </div>
-            </div>
           </div>
-          <!-- Content wrapper end -->
+          <div class="card w-200 h-200">
+            <h2 class="card-title mb-0 font-size-22" style="text-align: center;">
+              Most Beatiful City
+          </h2>           
+            <canvas id="myChart1"></canvas>
+            
+          </div>
+              <script
+              src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+              integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer"
+            ></script>
+            <script src="Charts/my-chart.js"></script>
+      </div>
+     
+
+      <!-- Content wrapper end -->
 
       <!-- Navbar fixed bottom start -->
       <nav class="navbar navbar-fixed-bottom">
