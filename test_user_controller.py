@@ -1,6 +1,8 @@
 import uuid
+import pytest
 from faker import Faker
 from controllers import user
+from mongoengine import ValidationError
 
 fake = Faker()
 
@@ -12,7 +14,8 @@ def test_create_user_a():
 def test_create_user_b():
     name = fake.name()
     user.create_user(name, fake.password())
-    assert not user.create_user(name, fake.password())
+    with pytest.raises(ValidationError, match=f"User {name} already exists."):
+        user.create_user(name, fake.password())
 
 
 def test_get_user_a():
