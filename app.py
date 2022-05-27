@@ -6,7 +6,7 @@ from secure.auth import auth
 from flask import Flask, request, session, render_template, redirect, url_for
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/static")
 
 app.secret_key = os.urandom(16)
 
