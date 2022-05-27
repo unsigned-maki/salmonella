@@ -2,7 +2,7 @@ import controllers.user as controller
 from .message import Message
 from secure.auth import auth
 from mongoengine import ValidationError
-from flask import Blueprint, render_template, request, session, abort
+from flask import Blueprint, render_template, request, session, abort, url_for, redirect
 
 user = Blueprint("user", __name__, template_folder='templates')
 
@@ -33,3 +33,27 @@ def create():
     else:
         return render_template("signup.html")
 
+
+@user.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        token = auth.authenticate_user(
+            request.form.get("name", ""),
+            request.form.get("password", ""),
+            request.form.get("keep", False))
+
+        if token:
+            session["token"] = token
+            return render_template("index.html")
+        else:
+            return render_template(
+                "login.html",
+                message=Message("error", "Invalid username or password."))
+    else:
+        return render_template("login.html")
+
+
+@user.route("/logout")
+def logout():
+    auth.delete(session.get("token", ""))
+    return redirect(url_for("user.login"))
