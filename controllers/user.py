@@ -1,6 +1,7 @@
 import uuid
 import hashlib
 import database as db
+from mongoengine import ValidationError
 
 
 def create_user(name, password):

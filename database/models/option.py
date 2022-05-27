@@ -1,5 +1,6 @@
 import uuid
 from mongoengine import *
+from mongoengine import ValidationError
 
 
 def valid_votes(votes):

@@ -1,4 +1,5 @@
 import database as db
+from mongoengine import ValidationError
 
 
 def create_poll(author, options, title, description):
