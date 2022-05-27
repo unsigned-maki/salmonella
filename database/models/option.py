@@ -5,7 +5,7 @@ from mongoengine import ValidationError
 
 def valid_votes(votes):
     if votes < 0:
-        raise ValidationError("Votes cannot be less than 0")
+        raise ValidationError("Votes cannot be less than 0.")
 
 
 class Option(EmbeddedDocument):

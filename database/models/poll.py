@@ -7,12 +7,12 @@ from mongoengine import ValidationError
 
 def valid_author(author):
     if not User.objects(id=author).count():
-        raise ValidationError("Author is not a valid user")
+        raise ValidationError("Author is not a valid user.")
 
 
 def valid_options(options):
     if len(options) < 2:
-        raise ValidationError("Minimum of 2 options required")
+        raise ValidationError("Minimum of 2 options required.")
 
 
 class Poll(Document):
