@@ -1,6 +1,7 @@
 import uuid
 import config
 from .hash import hash_str
+from database.models.user import User
 from controllers import user
 from flask_caching import Cache
 
@@ -18,7 +19,7 @@ class Auth(Cache):
             return False
 
     def is_authenticated(self, token):
-        return str(user.get_user(id=self.get(token)).id) == self.get(token)
+        return isinstance(user.get_user(id=self.get(token)), User)
 
     def get_user(self, token):
         return user.get_user(id=self.get(token))
