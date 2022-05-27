@@ -11,6 +11,9 @@ def create_user(name, password, confirm):
     if len(password) < 8:
         raise ValidationError("Password must be at least 8 characters long.")
 
+    if " " in password or " " in name:
+        raise ValidationError("Invalid username or password.")
+
     if password != confirm:
         raise ValidationError("Passwords do not match.")
 
