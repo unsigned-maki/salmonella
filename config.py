@@ -5,7 +5,8 @@ CACHE_CONFIG = {
 }
 
 REQUIRE_AUTHENTICATION = [
-    "user.change_password"
+    "user.change_password",
+    "poll.create"
 ]
 
 NO_AUTHENTICATION = [
