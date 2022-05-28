@@ -57,7 +57,7 @@ def create():
         return render_template("create.html")
 
 
-@poll.route("/listen", methods=['GET'])
+@poll.route("/listen", methods=["GET"])
 def listen():
 
     def stream():
@@ -66,4 +66,4 @@ def listen():
             msg = messages.get()
             yield msg
 
-    return Response(stream(), mimetype='text/event-stream')
+    return Response(stream(), mimetype="text/event-stream")

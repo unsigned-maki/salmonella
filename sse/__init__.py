@@ -2,9 +2,9 @@ import queue
 
 
 def format(data: str, event=None) -> str:
-    msg = f'data: {data}\n\n'
+    msg = f"data: {data}\n\n"
     if event is not None:
-        msg = f'event: {event}\n{msg}'
+        msg = f"event: {event}\n{msg}"
     return msg
 
 
