@@ -15,7 +15,7 @@ def create():
             new_user = controller.create_user(
                 name := request.form.get("name", ""),
                 password := request.form.get("password", ""),
-                not request.form.get("confirm", ""))
+                request.form.get("confirm", ""))
 
             if not new_user:
                 return render_template(
@@ -41,7 +41,7 @@ def login():
         token = auth.authenticate_user(
             request.form.get("name", ""),
             request.form.get("password", ""),
-            request.form.get("keep", False))
+            not request.form.get("keep", False))
 
         if token:
             session["token"] = token
