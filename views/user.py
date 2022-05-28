@@ -24,9 +24,7 @@ def create():
             else:
                 if token := auth.authenticate_user(name, password, True):
                     session["token"] = token
-                    return render_template(
-                        "index.html",
-                        message=Message("success", "Your account has been created."))
+                    return redirect(url_for("poll.view_all"))
                 else:
                     abort(401)  # unauthorised
         except ValidationError as e:
@@ -45,7 +43,7 @@ def login():
 
         if token:
             session["token"] = token
-            return render_template("index.html")
+            return redirect(url_for("poll.view_all"))
         else:
             return render_template(
                 "login.html",
