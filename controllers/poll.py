@@ -13,7 +13,7 @@ def create_poll(author, options, title, description):
         if not bool(option.strip()):
             raise ValidationError("Option must not be empty.")
 
-        insert_options.append(db.models.Option(text=option))
+        insert_options.append(db.models.Option(id=uuid.uuid4(), text=option))
 
     try:
         new_poll = db.models.Poll(
@@ -32,6 +32,10 @@ def create_poll(author, options, title, description):
 
 
 def get_poll(**kwargs):
+    if kwargs.get("id"):
+        if not isinstance(kwargs["id"], uuid.UUID) and isinstance(kwargs["id"], str):
+            kwargs["id"] = uuid.UUID(f"{kwargs['id']}")
+
     polls = db.models.Poll.objects(**kwargs)
 
     if not polls.count():

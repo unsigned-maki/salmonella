@@ -9,6 +9,6 @@ def valid_votes(votes):
 
 
 class Option(EmbeddedDocument):
-    id = UUIDField(default=uuid.uuid4(), primary_key=True)
+    id = UUIDField(required=True, primary_key=True)
     text = StringField(required=True)
     votes = IntField(default=0, validation=valid_votes)
