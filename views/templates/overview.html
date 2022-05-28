@@ -70,7 +70,7 @@ chart = new Chart(
         data: {
             labels: [{% for option in poll.options %}"{{ option.text }}",{% endfor %}],
             datasets: [{
-                label: "{{ poll.title }}",
+                label: "# of Votes",
                 data: [{% for option in poll.options %}{{ option.votes }},{% endfor %}],
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
