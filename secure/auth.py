@@ -18,8 +18,8 @@ class Auth(Cache):
         else:
             return False
 
-    def is_authenticated(self, token):
-        return isinstance(user.get_user(id=self.get(token)), User)
+    def is_authenticated(self, session):
+        return isinstance(user.get_user(id=self.get(session.get("token", ""))), User)
 
     def get_user(self, session):
         return user.get_user(id=self.get(session["token"]))
