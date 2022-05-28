@@ -1,9 +1,10 @@
+import sse
 import controllers.poll as controller
 from secure.auth import auth
 from .message import Message
 from jinja2 import TemplateNotFound
 from mongoengine import ValidationError
-from flask import Blueprint, render_template, abort, request, session
+from flask import Blueprint, render_template, abort, request, session, Response
 
 poll = Blueprint('poll', __name__, template_folder='templates')
 
@@ -54,3 +55,15 @@ def create():
             return render_template("create.html", message=Message("warning", e))
     else:
         return render_template("create.html")
+
+
+@poll.route("/listen", methods=['GET'])
+def listen():
+
+    def stream():
+        messages = sse.announcer.listen()
+        while True:
+            msg = messages.get()
+            yield msg
+
+    return Response(stream(), mimetype='text/event-stream')
