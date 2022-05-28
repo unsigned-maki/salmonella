@@ -5,22 +5,15 @@ import controllers.poll as controller
 from secure.auth import auth
 from .message import Message
 from mongoengine import ValidationError
-from flask import Blueprint, render_template, request, session, Response, abort
+from flask import Blueprint, render_template, request, session, Response, abort, redirect, url_for
 
 poll = Blueprint('poll', __name__, template_folder='templates')
 
 
 @poll.route("/view")
 def view_all():
-    pl = controller.get_poll(title="Meins")
-
-    i = ""
-
-    for option in pl.options:
-        i += str(option.id) + " --- "
-
-    #return str(pl.options[0].id)
-    return pl.to_json()
+    polls = controller.get_polls(author=auth.get_user(session).id)
+    return render_template("overview.html", polls=polls)
 
 
 @poll.route("/vote/<id>", methods=["GET", "POST"])
@@ -95,6 +88,18 @@ def create():
             return render_template("create.html", message=Message("warning", e))
     else:
         return render_template("create.html")
+
+
+@poll.route("/delete/<id>")
+def delete(id):
+    if not (pl := controller.get_poll(id=id)):
+        abort(404)  # not found
+
+    if pl.author != auth.get_user(session).id:
+        abort(401)  # unauthorised
+
+    controller.delete_poll(pl.id)
+    return redirect(url_for("poll.view_all"))
 
 
 @poll.route("/listen", methods=["GET"])
