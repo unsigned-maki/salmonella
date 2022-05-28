@@ -21,8 +21,8 @@ class Auth(Cache):
     def is_authenticated(self, token):
         return isinstance(user.get_user(id=self.get(token)), User)
 
-    def get_user(self, token):
-        return user.get_user(id=self.get(token))
+    def get_user(self, session):
+        return user.get_user(id=self.get(session["token"]))
 
 
 auth = Auth(config=config.CACHE_CONFIG)
