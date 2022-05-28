@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block options %}
+<a href="/user/logout" class="sidebar-link sidebar-link-with-icon">
+    <span class="sidebar-icon bg-danger text-dark rounded-circle">
+        <!-- bg-success = background-color: var(--success-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
+        <i class="fa-solid fa-right-to-bracket"></i>
+    </span>
+    Logout
+</a>
+<a href="/user/settings" class="sidebar-link sidebar-link-with-icon">
+    <span class="sidebar-icon bg-secondary text-dark rounded-circle">
+        <!-- bg-secondary = background-color: var(--secondary-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
+        <i class="fa-solid fa-gear"></i>
+    </span>
+    Settings
+</a>
+{% endblock %}
+{% block content %}
+<div class="modal" id="modal-1" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content w-600">
+        <a href="#" class="close" role="button" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+        <h5 class="modal-title">Poll Share Link</h5>
+        <p>
+            <code class="code" id="share-modal-link"></code>
+        </p>
+        <div class="text-center mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+          <button onclick="navigator.clipboard.writeText(document.getElementById('share-modal-link').innerText); toastr.success('Copied to clipboard.')" class="btn btn-primary" role="button">Copy</button>
+        </div>
+      </div>
+    </div>
+</div>  
+<!-- Content wrapper start -->
+<div class="content-wrapper">
+    <br>
+    <h2 style="text-align: center;">Your Polls</h2>
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            {% for poll in polls %}
+            <div class="col-s align-items-center">
+                <div class="card w-300 h-250">
+                    <h2 class="card-title mb-0 font-size-22" style="text-align: center;">{{ poll.title }}</h2>
+                    <canvas id="{{ poll.id.hex }}"></canvas>
+                    <div class="mt-15">
+                        <div class="btn-group" role="group" aria-label="First group">
+                            <a href="/poll/vote/{{ poll.id.hex }}" class="btn" type="button">View</a>
+                            <a onclick="document.getElementById('share-modal-link').innerText = `${window.location.origin}/poll/vote/{{ poll.id.hex }}`" href="#modal-1" class="btn" type="button">Share</a>
+                        </div>
+                        <div class="btn-group ml-10" role="group" aria-label="Second group">
+                            <a href="/poll/delete/{{ poll.id.hex }}" class="btn btn-danger" type="button">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+var chart;
+
+{% for poll in polls %}
+chart = new Chart(
+    document.getElementById("{{ poll.id.hex }}"),
+    {
+        type: 'bar',
+        data: {
+            labels: [{% for option in poll.options %}"{{ option.text }}",{% endfor %}],
+            datasets: [{
+                label: "{{ poll.title }}",
+                data: [{% for option in poll.options %}{{ option.votes }},{% endfor %}],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+            }
+        }
+    }
+);
+{% endfor %}
+</script>
+<!-- Content wrapper end -->
+{% endblock %}
