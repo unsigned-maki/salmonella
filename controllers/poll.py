@@ -1,11 +1,18 @@
+import uuid
 import database as db
 from mongoengine import ValidationError
 
 
 def create_poll(author, options, title, description):
+    if not isinstance(author, uuid.UUID) and isinstance(author, str):
+        author = uuid.UUID(f"{author}")
+
     insert_options = []
 
     for option in options:
+        if not bool(option.strip()):
+            raise ValidationError("Option must not be empty.")
+
         insert_options.append(db.models.Option(text=option))
 
     try:
