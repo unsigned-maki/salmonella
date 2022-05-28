@@ -16,7 +16,7 @@ def valid_options(options):
 
 
 class Poll(Document):
-    id = UUIDField(default=uuid.uuid4(), primary_key=True)
+    id = UUIDField(required=True, primary_key=True)
     title = StringField(required=True)
     description = StringField(required=True)
     author = UUIDField(required=True, validation=valid_author)

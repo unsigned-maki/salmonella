@@ -1,6 +1,6 @@
 import uuid
-import hashlib
 import database as db
+from secure.hash import hash_str
 from mongoengine import ValidationError
 
 
@@ -18,7 +18,10 @@ def create_user(name, password, confirm):
         raise ValidationError("Passwords do not match.")
 
     try:
-        new_user = db.models.User(name=name, password=hashlib.sha256(password.encode()).digest())
+        new_user = db.models.User(
+            id=uuid.uuid4(),
+            name=name,
+            password=hash_str(password))
         new_user.save()
     except ValidationError as e:
         raise e
@@ -67,5 +70,5 @@ def update_user_password(id, new, confirm):
     if not users.count():
         return False
 
-    users[0].update(password=hashlib.sha256(new.encode()).digest())
+    users[0].update(password=hash_str(new))
     return True

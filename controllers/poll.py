@@ -17,6 +17,7 @@ def create_poll(author, options, title, description):
 
     try:
         new_poll = db.models.Poll(
+            id=uuid.uuid4(),
             author=author,
             options=insert_options,
             title=title,
