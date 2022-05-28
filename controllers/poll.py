@@ -44,6 +44,16 @@ def get_poll(**kwargs):
     return polls[0]
 
 
+def get_polls(**kwargs):
+    if kwargs.get("id"):
+        if not isinstance(kwargs["id"], uuid.UUID) and isinstance(kwargs["id"], str):
+            kwargs["id"] = uuid.UUID(f"{kwargs['id']}")
+
+    polls = db.models.Poll.objects(**kwargs)
+
+    return polls
+
+
 def delete_poll(id):
     polls = db.models.Poll.objects(id=id)
 
