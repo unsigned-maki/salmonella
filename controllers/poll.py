@@ -56,6 +56,9 @@ def get_polls(**kwargs):
 
 
 def delete_poll(id):
+    if not isinstance(id, uuid.UUID) and isinstance(id, str):
+        id = uuid.UUID(id)
+
     polls = db.models.Poll.objects(id=id)
 
     if not polls.count():
