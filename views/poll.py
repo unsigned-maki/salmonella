@@ -10,6 +10,7 @@ from flask import Blueprint, render_template, request, session, Response, abort,
 poll = Blueprint('poll', __name__, template_folder='templates')
 
 
+@poll.route("/view/<id>/")
 @poll.route("/view/<id>")
 def view(id):
     if not (pl := controller.get_poll(id=id)):
@@ -25,12 +26,15 @@ def view(id):
         chart=chart)
 
 
+@poll.route("/")
+@poll.route("/view/")
 @poll.route("/view")
 def view_all():
     polls = controller.get_polls(author=auth.get_user(session).id)
     return render_template("overview.html", polls=polls)
 
 
+@poll.route("/vote/<id>/")
 @poll.route("/vote/<id>", methods=["GET", "POST"])
 def vote(id):
     if not (pl := controller.get_poll(id=id)):
@@ -84,6 +88,7 @@ def vote(id):
             author=author.name if author else "Deleted User")
 
 
+@poll.route("/create/")
 @poll.route("/create", methods=["GET", "POST"])
 def create():
     if request.method == "POST":
@@ -113,6 +118,7 @@ def create():
         return render_template("create.html")
 
 
+@poll.route("/delete/<id>/")
 @poll.route("/delete/<id>")
 def delete(id):
     if not (pl := controller.get_poll(id=id)):

@@ -8,6 +8,8 @@ from flask import Blueprint, render_template, request, session, abort, url_for, 
 user = Blueprint("user", __name__, template_folder='templates')
 
 
+@user.route("/")
+@user.route("/signup/")
 @user.route("/signup", methods=["GET", "POST"])
 def create():
     if request.method == "POST":
@@ -33,6 +35,7 @@ def create():
         return render_template("signup.html")
 
 
+@user.route("/login/")
 @user.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -52,6 +55,7 @@ def login():
         return render_template("login.html")
 
 
+@user.route("/settings/")
 @user.route("/settings", methods=["GET", "POST"])
 def change_password():
     if request.method == "POST":
@@ -72,6 +76,7 @@ def change_password():
         return render_template("settings.html")
 
 
+@user.route("/logout/")
 @user.route("/logout")
 def logout():
     auth.delete(session.get("token", ""))
