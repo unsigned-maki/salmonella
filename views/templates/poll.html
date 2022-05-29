@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}View Poll{% endblock %}
+{% block options %}
+{% if logged_in %}
+{% include "sidebar.html" %}
+{% else %}
+{% include "sidebar_anonymous.html" %}
+{% endif %}
+{% endblock %}
+{% include "modals/share_modal.html" %}
+{% block content %}
+<!-- Content wrapper start -->
+<div margin="10" class="content-wrapper d-flex justify-content-center allign-items-center">
+    <br>
+    <div class="card w-600 align-items-center" style="text-align: center;">
+        <h2 class="card-title mb-0 font-size-22">{{ poll.title }}</h2>
+        <p>{{ poll.description }}</p>
+        <div class="mb-10" style="height: 60%">
+            <canvas id="results"></canvas>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 mt-20">
+                    <select onchange="changeChart(this.value)" class="form-control w-300" id="chart-type"
+                        required="required">
+                        <option value="bar" selected="selected" disabled="disabled">Chart Type</option>
+                        <option value="bar">Bar</option>
+                        <option value="pie">Pie</option>
+                        <option value="doughnut">Doughnut</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mt-20">
+                    <a onclick="document.getElementById('share-modal-link').innerText = `${window.location.origin}/poll/vote/{{ poll.id.hex }}`" href="#share-modal" class="btn btn-primary" type="button">Share</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const options = { maintainAspectRatio: false };
+
+    const data = {
+        labels: [{% for option in poll.options %}"{{ option.text }}", {% endfor %}],
+    datasets: [{
+        label: "# of Votes",
+        data: [{% for option in poll.options %}{{ option.votes }}, {% endfor %}],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                borderWidth: 1
+        }]
+    };
+
+
+    const config = {
+        "bar": {
+            type: "bar",
+            data: data,
+            options: options
+        },
+        "doughnut": {
+            type: "doughnut",
+            data: data,
+            options: options
+        },
+        "pie": {
+            type: "pie",
+            data: data,
+            options: options
+        }
+    }
+
+
+    var myChart = new Chart(
+        document.getElementById("results"),
+        config["bar"]
+    );
+
+    function changeChart(chartType) {
+        myChart.destroy();
+
+        myChart = new Chart(
+            document.getElementById("results"),
+            config[chartType]
+        );
+    }
+</script>
+{% endblock %}

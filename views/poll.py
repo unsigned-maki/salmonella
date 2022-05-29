@@ -10,6 +10,13 @@ from flask import Blueprint, render_template, request, session, Response, abort,
 poll = Blueprint('poll', __name__, template_folder='templates')
 
 
+@poll.route("/view/<id>")
+def view(id):
+    if not (pl := controller.get_poll(id=id)):
+        abort(404)  # not found
+    return render_template("poll.html", logged_in=auth.is_authenticated(session), poll=pl)
+
+
 @poll.route("/view")
 def view_all():
     polls = controller.get_polls(author=auth.get_user(session).id)
@@ -28,6 +35,7 @@ def vote(id):
             if author.id == auth.get_user(session).id:
                 return render_template(
                     "vote.html",
+                    logged_in=auth.is_authenticated(session),
                     poll=pl,
                     author=author.name if author else "Deleted User",
                     message=Message("error", "You must not vote on your own poll."))
@@ -35,6 +43,7 @@ def vote(id):
         if len(request.form) != 1:
             return render_template(
                 "vote.html",
+                logged_in=auth.is_authenticated(session),
                 poll=pl,
                 author=author.name if author else "Deleted User",
                 message=Message("warning", "No option was selected."))
@@ -46,16 +55,18 @@ def vote(id):
                 option.votes += 1
                 pl.save()
                 sse.announcer.announce(msg=sse.format(data=pl.id.hex))
-                return redirect(url_for("user.login"))
+                return redirect(url_for("poll.view", id=id))
 
         return render_template(
             "vote.html",
+            logged_in=auth.is_authenticated(session),
             poll=pl,
             author=author.name if author else "Deleted User",
             message=Message("error", "Something went wrong selecting your option."))
     else:
         return render_template(
             "vote.html",
+            logged_in=auth.is_authenticated(session),
             poll=pl,
             author=author.name if author else "Deleted User")
 
