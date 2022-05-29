@@ -9,6 +9,9 @@
 <div class="content-wrapper">
     <br>
     <h2 style="text-align: center;">Your Polls</h2>
+    {% if poll_count < 1 %}
+    <p style="text-align: center;" class="font-size-24">You have no active polls, start your journey by <a href="/poll/create">creating one</a>!</p>
+    {% endif %}
     <div class="container-fluid">
         <div class="row align-items-center">
             {% for poll in polls %}

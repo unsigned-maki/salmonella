@@ -31,7 +31,7 @@ def view(id):
 @poll.route("/view")
 def view_all():
     polls = controller.get_polls(author=auth.get_user(session).id)
-    return render_template("overview.html", polls=polls)
+    return render_template("overview.html", polls=polls, poll_count=len(polls))
 
 
 @poll.route("/vote/<id>/")
