@@ -7,6 +7,12 @@ def create_poll(author, options, title, description):
     if not isinstance(author, uuid.UUID) and isinstance(author, str):
         author = uuid.UUID(f"{author}")
 
+    if len(title) > 16 or len(title) < 3:
+        raise ValidationError("Title must be between 3 and 16 characters long.")
+
+    if len(description) > 120:
+        raise ValidationError("Description must not exceed the 120 characters limit.")
+
     if len(options) > 31:
         raise ValidationError("Must not provide more than 31 options.")
 
