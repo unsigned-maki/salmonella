@@ -2,9 +2,9 @@
 {% block title %}View Poll{% endblock %}
 {% block options %}
 {% if logged_in %}
-{% include "sidebar.html" %}
+{% include "sidebars/sidebar.html" %}
 {% else %}
-{% include "sidebar_anonymous.html" %}
+{% include "sidebars/sidebar_anonymous.html" %}
 {% endif %}
 {% endblock %}
 {% include "modals/share_modal.html" %}
