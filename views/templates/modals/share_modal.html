@@ -1,0 +1,16 @@
+<div class="modal" id="share-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content w-600">
+        <a href="#" class="close" role="button" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+        <h5 class="modal-title">Poll Share Link</h5>
+        <p>
+            <textarea style="resize:none; width:100%" class="code" id="share-modal-link"></textarea>
+        </p>
+        <div class="text-center mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+          <button onclick="document.getElementById('share-modal-link').focus(); document.getElementById('share-modal-link').select(); document.execCommand('copy'); toastr.success('Copied to clipboard.')" class="btn btn-primary" role="button">Copy</button>
+        </div>
+      </div>
+    </div>
+</div>

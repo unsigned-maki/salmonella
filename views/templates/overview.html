@@ -4,22 +4,7 @@
 {% include "sidebar.html" %}
 {% endblock %}
 {% block content %}
-<div class="modal" id="modal-1" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content w-600">
-        <a href="#" class="close" role="button" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </a>
-        <h5 class="modal-title">Poll Share Link</h5>
-        <p>
-            <textarea style="resize:none; width:100%" class="code" id="share-modal-link"></textarea>
-        </p>
-        <div class="text-center mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
-          <button onclick="document.getElementById('share-modal-link').focus(); document.getElementById('share-modal-link').select(); document.execCommand('copy'); toastr.success('Copied to clipboard.')" class="btn btn-primary" role="button">Copy</button>
-        </div>
-      </div>
-    </div>
-</div>  
+{% include "modals/share_modal.html" %}
 <!-- Content wrapper start -->
 <div class="content-wrapper">
     <br>
@@ -33,8 +18,8 @@
                     <canvas id="{{ poll.id.hex }}"></canvas>
                     <div class="mt-15">
                         <div class="btn-group" role="group" aria-label="First group">
-                            <a href="/poll/vote/{{ poll.id.hex }}" class="btn" type="button">View</a>
-                            <a onclick="document.getElementById('share-modal-link').innerText = `${window.location.origin}/poll/vote/{{ poll.id.hex }}`" href="#modal-1" class="btn" type="button">Share</a>
+                            <a href="/poll/view/{{ poll.id.hex }}" class="btn" type="button">View</a>
+                            <a onclick="document.getElementById('share-modal-link').innerText = `${window.location.origin}/poll/vote/{{ poll.id.hex }}`" href="#share-modal" class="btn" type="button">Share</a>
                         </div>
                         <div class="btn-group ml-10" role="group" aria-label="Second group">
                             <a href="/poll/delete/{{ poll.id.hex }}" class="btn btn-danger" type="button">Delete</a>
