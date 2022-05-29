@@ -5,7 +5,7 @@ import controllers.poll as controller
 from secure.auth import auth
 from .message import Message
 from mongoengine import ValidationError
-from flask import Blueprint, render_template, request, session, Response, abort, redirect, url_for
+from flask import Blueprint, render_template, request, session, Response, abort, redirect, url_for, make_response
 
 poll = Blueprint('poll', __name__, template_folder='templates')
 
@@ -27,6 +27,9 @@ def view_all():
 def vote(id):
     if not (pl := controller.get_poll(id=id)):
         abort(404)  # not found
+
+    if request.cookies.get(pl.id.hex):
+        return redirect(url_for("poll.view", id=id))
 
     author = user.get_user(id=pl.author)
 
@@ -55,7 +58,9 @@ def vote(id):
                 option.votes += 1
                 pl.save()
                 sse.announcer.announce(msg=sse.format(data=pl.id.hex))
-                return redirect(url_for("poll.view", id=id))
+                response = make_response(redirect(url_for("poll.view", id=id)))
+                response.set_cookie(pl.id.hex, "true")
+                return response
 
         return render_template(
             "vote.html",
