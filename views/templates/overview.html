@@ -25,10 +25,10 @@
         </a>
         <h5 class="modal-title">Poll Share Link</h5>
         <p>
-            <code class="code" id="share-modal-link"></code>
+            <textarea style="resize:none; width:100%" class="code" id="share-modal-link"></textarea>
         </p>
         <div class="text-center mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
-          <button onclick="navigator.clipboard.writeText(document.getElementById('share-modal-link').innerText); toastr.success('Copied to clipboard.')" class="btn btn-primary" role="button">Copy</button>
+          <button onclick="document.getElementById('share-modal-link').focus(); document.getElementById('share-modal-link').select(); document.execCommand('copy'); toastr.success('Copied to clipboard.')" class="btn btn-primary" role="button">Copy</button>
         </div>
       </div>
     </div>
