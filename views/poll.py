@@ -14,7 +14,15 @@ poll = Blueprint('poll', __name__, template_folder='templates')
 def view(id):
     if not (pl := controller.get_poll(id=id)):
         abort(404)  # not found
-    return render_template("poll.html", logged_in=auth.is_authenticated(session), poll=pl)
+
+    if (chart := request.args.get("chart", "")) not in ["bar", "doughnut", "pie"]:
+        chart = "bar"
+
+    return render_template(
+        "poll.html",
+        logged_in=auth.is_authenticated(session),
+        poll=pl,
+        chart=chart)
 
 
 @poll.route("/view")

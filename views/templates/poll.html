@@ -86,7 +86,7 @@
 
     var myChart = new Chart(
         document.getElementById("results"),
-        config["bar"]
+        config["{{ chart }}"]
     );
 
     function changeChart(chartType) {
@@ -97,5 +97,10 @@
             config[chartType]
         );
     }
+
+    var source = new EventSource(`${window.location.origin}/poll/listen/{{ poll.id.hex }}`);
+        source.onmessage = function(event) {
+        window.location.assign(`${window.location.origin}/poll/view/{{ poll.id.hex }}}?chart=${document.getElementById("chart-type").value}`)
+    }; 
 </script>
 {% endblock %}
