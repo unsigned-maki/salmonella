@@ -1,20 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Settings{% endblock %}
 {% block options %}
-<a href="/user/logout" class="sidebar-link sidebar-link-with-icon">
-    <span class="sidebar-icon bg-danger text-dark rounded-circle">
-        <!-- bg-success = background-color: var(--success-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
-        <i class="fa-solid fa-right-to-bracket"></i>
-    </span>
-    Logout
-</a>
-<a href="/user/settings" class="sidebar-link sidebar-link-with-icon">
-    <span class="sidebar-icon bg-secondary text-dark rounded-circle">
-        <!-- bg-secondary = background-color: var(--secondary-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
-        <i class="fa-solid fa-gear"></i>
-    </span>
-    Settings
-</a>
+{% include "sidebar.html" %}
 {% endblock %}
 {% block content %}
 <div class="modal" id="modal-1" tabindex="-1" role="dialog">
