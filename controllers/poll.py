@@ -7,11 +7,14 @@ def create_poll(author, options, title, description):
     if not isinstance(author, uuid.UUID) and isinstance(author, str):
         author = uuid.UUID(f"{author}")
 
+    if len(options) > 31:
+        raise ValidationError("Must not provide more than 31 options.")
+
     insert_options = []
 
     for option in options:
         if not bool(option.strip()):
-            raise ValidationError("Option must not be empty.")
+            raise ValidationError("Options contain invalid symbols.")
 
         insert_options.append(db.models.Option(id=uuid.uuid4(), text=option))
 

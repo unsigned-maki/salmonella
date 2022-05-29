@@ -8,11 +8,17 @@ def create_user(name, password, confirm):
     if get_user(name=name):
         raise ValidationError(f"User {name} already exists.")
 
+    if len(name) < 3 or len(name) > 12:
+        raise ValidationError("Name must be between 3 and 12 characters long.")
+
     if len(password) < 8:
         raise ValidationError("Password must be at least 8 characters long.")
 
-    if " " in password or " " in name:
-        raise ValidationError("Invalid username or password.")
+    if " " in password:
+        raise ValidationError("Password must not contain spaces.")
+
+    if any(i in name for i in [" ", "'", "+", ",", "<", ">", ".", "/", "\\", "\""]):
+        raise ValidationError("Name contains invalid symbols.")
 
     if password != confirm:
         raise ValidationError("Passwords do not match.")
