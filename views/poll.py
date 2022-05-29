@@ -45,7 +45,8 @@ def vote(id):
             if uuid.UUID(choice) == option.id:
                 option.votes += 1
                 pl.save()
-                return render_template("index.html")
+                sse.announcer.announce(msg=sse.format(data=pl.id.hex))
+                return redirect(url_for("user.login"))
 
         return render_template(
             "vote.html",
@@ -100,13 +101,14 @@ def delete(id):
     return redirect(url_for("poll.view_all"))
 
 
-@poll.route("/listen", methods=["GET"])
-def listen():
+@poll.route("/listen/<id>", methods=["GET"])
+def listen(id):
 
     def stream():
         messages = sse.announcer.listen()
         while True:
             msg = messages.get()
-            yield msg
+            if id in msg:
+                yield sse.format("update")
 
     return Response(stream(), mimetype="text/event-stream")
