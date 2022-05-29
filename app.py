@@ -30,5 +30,10 @@ def no_auth():
             return render_template("index.html")
 
 
+@app.route("/")
+def index():
+    return redirect(url_for("poll.view_all"))
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(host="localhost", port=5000)
