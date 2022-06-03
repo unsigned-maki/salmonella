@@ -27,7 +27,7 @@ def require_auth():
 def no_auth():
     if request.endpoint in config.NO_AUTHENTICATION:
         if auth.is_authenticated(session):
-            return render_template("index.html")
+            return redirect(url_for("poll.view_all"))
 
 
 @app.route("/")
