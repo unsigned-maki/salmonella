@@ -4,4 +4,5 @@ from mongoengine import *
 
 DB_HOST = os.getenv("DB_HOST")
 
-connect(DB_HOST)
+#connect(host=DB_HOST)
+connect("salmonellaTestDb")

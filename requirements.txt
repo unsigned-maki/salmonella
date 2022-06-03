@@ -1,5 +1,7 @@
-mongoengine
+gunicorn
 flask
-faker
-pytest
+dnspython
+mongoengine
 Flask-Caching
+pymongo[srv]
+wsgi

@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+flask = "*"
+gunicorn = "*"
 mongoengine = "*"
-Flask = "*"
-Faker = "*"
-pytest = "*"
 Flask-Caching = "*"
+dnspython = "*"
 
 [dev-packages]
 
