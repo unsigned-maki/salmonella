@@ -1,6 +1,6 @@
 CACHE_CONFIG = {
     "DEBUG": True,
-    "CACHE_TYPE": "SimpleCache",
+    "CACHE_TYPE": "flask_caching.contrib.uwsgicache.UWSGICache",
     "CACHE_DEFAULT_TIMEOUT": 300
 }
 
