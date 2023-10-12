@@ -8,7 +8,7 @@ mongoengine = "*"
 Flask = "*"
 Faker = "*"
 pytest = "*"
-Flask-Caching = "*"
+pyjwt = "*"
 
 [dev-packages]
 
