@@ -25,7 +25,8 @@ class Auth:
             False
 
     def get_user(self, session):
-        return user.get_user(id=jwt.decode(session.get("token", ""), JWT_SECRET, algorithms="HS256")["user"])
+        if self.is_authenticated(session):
+            return user.get_user(id=jwt.decode(session.get("token", ""), JWT_SECRET, algorithms="HS256")["user"])
 
 
 auth = Auth()
