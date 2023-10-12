@@ -3,3 +3,4 @@ flask
 faker
 pytest
 Flask-Caching
+pyjwt
