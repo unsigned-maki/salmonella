@@ -4,4 +4,3 @@ dnspython
 mongoengine
 Flask-Caching
 pymongo[srv]
-wsgi
