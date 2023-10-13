@@ -9,6 +9,7 @@ Flask = "*"
 Faker = "*"
 pytest = "*"
 pyjwt = "*"
+dnspython = "*"
 
 [dev-packages]
 
