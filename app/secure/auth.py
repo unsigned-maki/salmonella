@@ -3,8 +3,6 @@ import config
 from .hash import hash_str
 from database.models.user import User
 from controllers import user
-from flask_caching import Cache
-
 
 class Auth(Cache):
 
