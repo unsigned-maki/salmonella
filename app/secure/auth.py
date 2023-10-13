@@ -1,32 +1,28 @@
-import os
-import jwt
+import uuid
+import config
 from .hash import hash_str
 from database.models.user import User
 from controllers import user
+from flask_caching import Cache
 
-JWT_SECRET = os.getenv("JWT_SECRET")
 
-class Auth:
+class Auth(Cache):
 
     def authenticate_user(self, name, password, tmp):
         if usr := user.get_user(name=name):
             if hash_str(password) == usr.password:
-                return jwt.encode({"user": str(usr.id)}, JWT_SECRET, algorithm="HS256")
+                self.add(token := str(uuid.uuid4().hex), str(usr.id), timeout=18000 if tmp else 0)
+                return token
             else:
                 return False
         else:
             return False
 
     def is_authenticated(self, session):
-        try:
-            decoded = jwt.decode(session.get("token", ""), JWT_SECRET, algorithms="HS256")
-            return isinstance(user.get_user(id=decoded["user"]), User)
-        except:
-            False
+        return isinstance(user.get_user(id=self.get(session.get("token", ""))), User)
 
     def get_user(self, session):
-        if self.is_authenticated(session):
-            return user.get_user(id=jwt.decode(session.get("token", ""), JWT_SECRET, algorithms="HS256")["user"])
+        return user.get_user(id=self.get(session["token"]))
 
 
-auth = Auth()
+auth = Auth(config=config.CACHE_CONFIG)

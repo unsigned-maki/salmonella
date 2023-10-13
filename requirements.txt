@@ -1,5 +1,13 @@
-mongoengine
+gunicorn
 flask
+<<<<<<< HEAD
 faker
 pytest
 pyjwt
+=======
+dnspython
+mongoengine
+Flask-Caching
+pymongo[srv]
+wsgi
+>>>>>>> 8ed14b17f7c065dd1e28e1598695b583af775934
