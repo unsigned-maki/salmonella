@@ -4,3 +4,4 @@ faker
 pytest
 pyjwt
 dnspython
+gunicorn
