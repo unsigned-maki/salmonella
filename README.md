@@ -2,6 +2,8 @@
 
 School project for Project Management class which is supposed to become an online poll website similar to [StrawPoll](https://www.strawpoll.me/).
 
+[Optimised and improved version](https://github.com/unsigned-maki/salmonella-dbi)
+
 # Setup
 
 - [Download](https://www.python.org/downloads/release/python-3912/) and install Python 3.9 or higher
